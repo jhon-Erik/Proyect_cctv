@@ -3,10 +3,14 @@ package com.cctv.proyecto.app.entity;
 import java.io.Serializable;
 import java.util.Date;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
@@ -30,7 +34,34 @@ public class Incidencia implements Serializable {
 	@Temporal(TemporalType.TIME)
 	private String time;
 	
+    
+	@JoinColumn(name = "sedes_id")
+	@ManyToOne(fetch =  FetchType.LAZY,cascade = CascadeType.ALL)
+	private Sedes sedes;
 	
+	@ManyToOne(fetch =  FetchType.LAZY,cascade = CascadeType.ALL)
+	private Alertas alertas;
+	
+	
+	
+	
+	
+	public Sedes getSedes() {
+		return sedes;
+	}
+
+	public void setSedes(Sedes sedes) {
+		this.sedes = sedes;
+	}
+
+	public Alertas getAlertas() {
+		return alertas;
+	}
+
+	public void setAlertas(Alertas alertas) {
+		this.alertas = alertas;
+	}
+
 	public Incidencia(int incid_id, String descripcion, Date fecha, String time) {
 	
 		this.incid_id = incid_id;

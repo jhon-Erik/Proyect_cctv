@@ -2,18 +2,22 @@ package com.cctv.proyecto.app.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Temporal;
 import jakarta.persistence.TemporalType;
 
 @Entity
 @Table(name="trabajadores")
-public class Trabajadore  implements Serializable{
+public class Trabajadores  implements Serializable{
 
 
 	private static final long serialVersionUID = 1L;
@@ -26,10 +30,23 @@ public class Trabajadore  implements Serializable{
 	@Temporal(TemporalType.DATE)
 	private Date fech_nac;
 	 private String email;
+	 
+	 @OneToMany(mappedBy ="trabajadores", fetch =  FetchType.LAZY)
+     private List<Sedes> sedes;
 	
 
 	 
-	 public Trabajadore(int trabj_id, String nombre, String apellido, Date fech_nac, String email) {
+	 public List<Sedes> getSedes() {
+		return sedes;
+	}
+
+
+	public void setSedes(List<Sedes> sedes) {
+		this.sedes = sedes;
+	}
+
+
+	public Trabajadores(int trabj_id, String nombre, String apellido, Date fech_nac, String email) {
 	
 		this.trabj_id = trabj_id;
 		this.nombre = nombre;
@@ -39,7 +56,7 @@ public class Trabajadore  implements Serializable{
 	}
 	 
 	 
-	public Trabajadore() {
+	public Trabajadores() {
 	
 	}
 
