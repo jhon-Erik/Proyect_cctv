@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title th:text="${titulo}"></title>
+</head>
+<body>
+	<h1 th:text="${titulo}"></h1>
+	<table>
+		<thead>
+			<tr>
+				<th>Id</th>
+				<th>Nombre</th>
+				<th>Sede</th>
+				<th>Descripcion</th>
+				<th>Alerta</th>
+				<th>Fecha</th>
+				<th>Hora</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr th:each=" incidencia : ${listaIncidencias}">
+				<td th:text="${incidencia.id}"></td>
+				<td th:text="${incidencia.sede?.trabajador?.nombreTrabajador}"></td>
+				<td th:text="${incidencia.sede?.nombreSede}"></td>
+				<td th:text="${incidencia.descripcion}"></td>
+				<td th:text="${incidencia.alerta?.tipoAlerta}"></td>
+				<td th:text="${incidencia.fechaIncidencia}"></td>
+				<td th:text="${incidencia.hora}"></td>
+			</tr>
+			
+		</tbody>
+		
+	</table>
+
+</body>
+</html>
