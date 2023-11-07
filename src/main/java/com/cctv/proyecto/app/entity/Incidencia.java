@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Entity
 @Table(name = "incidencias")
-public class Incidente {
+public class Incidencia {
 	
 
 	@Id
@@ -38,6 +38,8 @@ public class Incidente {
 	
 	@Column(name = "hora")
 	private String hora;
+	
+	private Integer estado;
 	
 	@ManyToOne
 	@JoinColumn(name = "id_sede")
