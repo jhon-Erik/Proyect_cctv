@@ -56,7 +56,7 @@ public class IncidenciaController {
   
     
     @PostMapping
-    @ResponseStatus(value = HttpStatus.CREATED, reason = "se creó correctamente")
+    @ResponseStatus(value = HttpStatus.CREATED, reason = "se creo correctamente")
     @ResponseBody
     public ResponseEntity<Incidencia>insertarIncidencia(@RequestBody Incidencia incidencia){
     	incidencia =  incidenciaService.InsertarIncidencia(incidencia);
