@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,6 +19,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.cctv.proyecto.app.entity.ErrorEntity;
 import com.cctv.proyecto.app.entity.Incidencia;
 import com.cctv.proyecto.app.service.IncidenciaService;
 
@@ -27,10 +29,10 @@ public class IncidenciaController {
 	
 	@Autowired
 	private  IncidenciaService incidenciaService;
-	
+
 	//METODO LISTAR
     @GetMapping("/listar") 
-	public List<Incidencia>lsitar(Model model) {
+	public List<Incidencia>listar(Model model) {
 		model.addAttribute("titulo","listado de incidencias");
 		model.addAttribute("listaIncidencias", incidenciaService.listar());
 		return incidenciaService.listar();
@@ -38,25 +40,20 @@ public class IncidenciaController {
 
     
     
-    
-   // public ResponseEntity<Incidencia>obtenerIncidencia(@PathVariable(value="8095")Integer id){
-    //	try {
-    	//	return ResponseEntity.status(HttpStatus.OK).body(incidenciaService.ObtenerIncidencia(id));
+    @GetMapping("/{id}")
+    public ResponseEntity obtenerIncidencia(@PathVariable(value="id")Integer id){
+    	try {
+    		return ResponseEntity.status(HttpStatus.OK).body(incidenciaService.ObtenerIncidencia(id));
 			
-//		} catch (Exception e) {
+		} catch (Exception ex) {
+			ErrorEntity error =  new ErrorEntity(HttpStatus.NOT_FOUND.toString(),"incidencia no encontrada", ex.getMessage());
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
 			
-	//	} 
-    //}
+		} 
+    }
     
     
-    
-    
-    
-    
-    
-
-    
-    
+  
     
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED, reason = "se creó correctamente")
