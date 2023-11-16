@@ -1,13 +1,11 @@
 package com.cctv.proyecto.app.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.persistence.UniqueConstraint;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,23 +14,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sedes")
-public class Sede {
-	
+@Table(name="authoritie", uniqueConstraints = {@UniqueConstraint(columnNames = {"usu_id","authority"})})
+public class Role {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_sede")
-	private Integer idSede;
-	
-	@Column(name = "nombre_sede")
-	private String nombreSede;
-	
-	@Column(name = "ubicacion_sede")
-	private String ubiSede;
-	
-	@ManyToOne
-	@JoinColumn(name = "idTrabajador")
-	private Trabajador trabajador;
+	private Integer autho_id ;
 
+	private String authority ;
 }

@@ -23,20 +23,20 @@ import com.cctv.proyecto.app.service.TrabajadorService;
 
 
 @RestController
-@RequestMapping("trabajador")
+@RequestMapping("/api")
 public class TrabajadorController {
 	
 	
 	@Autowired
 	private TrabajadorService trabajadorService;
 
-	@GetMapping("listar")
+	@GetMapping("/trabajadores/listar")
 	   public List<Trabajador>listar(){
 		   
 		   return trabajadorService.listar();
 	   }
 	
-	@GetMapping("/id")
+	@GetMapping("/trabajadores/{id}")
 	public ResponseEntity obtenerTrabajador(@PathVariable (value="id") Integer id) {
 		
 		try {
@@ -51,7 +51,7 @@ public class TrabajadorController {
 	}
 	
 	
-	@PostMapping
+	@PostMapping("/trabajadores")
 	@ResponseStatus(value=HttpStatus.CREATED, reason="se creo correctamente")
 	@ResponseBody
 	public ResponseEntity<Trabajador>insertarTrabajador(@RequestBody Trabajador trabajador){
@@ -65,8 +65,8 @@ public class TrabajadorController {
 	}
 	
 	
-	@PutMapping("/{id}")
-	@ResponseStatus(value=HttpStatus.ACCEPTED, reason="se creo correctamente")
+	@PutMapping("/trabajadores/{id}")
+	@ResponseStatus(value=HttpStatus.ACCEPTED, reason="se actualizo correctamente")
 	@ResponseBody
 	public ResponseEntity<Trabajador>actualizarTrabajador(@RequestBody Trabajador trabajador,@PathVariable(value="id")Integer id){
 	   trabajador = trabajadorService.actualizarTrabajador(trabajador);
@@ -80,7 +80,8 @@ public class TrabajadorController {
 	}
 	
 	
-	@DeleteMapping("/{id}")
+	@DeleteMapping("/trabajadores/{id}")
+	@ResponseStatus(value=HttpStatus.NO_CONTENT, reason="se elimino correctamente")
 	public Trabajador eliminarTrabajador(@PathVariable(value="id")Integer id) {
 		return trabajadorService.eliminarTrabajador(id);
 	}

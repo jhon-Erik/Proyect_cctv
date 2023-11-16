@@ -1,12 +1,15 @@
 package com.cctv.proyecto.app.entity;
 
+import java.util.List;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,23 +19,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "sedes")
-public class Sede {
-	
+@Table(name="users")
+public class Usuario {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id_sede")
-	private Integer idSede;
+	private Integer usu_id;
 	
-	@Column(name = "nombre_sede")
-	private String nombreSede;
+	@Column(unique = true)
+	private String username ;
+	private String password;
+	 private Boolean enable;
+	 
+	 
+	 @OneToMany(fetch = FetchType.LAZY)
+	 @JoinColumn(name="usu_id")
+	 private List<Role> roles;
 	
-	@Column(name = "ubicacion_sede")
-	private String ubiSede;
 	
-	@ManyToOne
-	@JoinColumn(name = "idTrabajador")
-	private Trabajador trabajador;
-
 }

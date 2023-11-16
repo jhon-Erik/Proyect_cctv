@@ -24,14 +24,14 @@ import com.cctv.proyecto.app.entity.Incidencia;
 import com.cctv.proyecto.app.service.IncidenciaService;
 
 @RestController
-@RequestMapping("incidencia")
+@RequestMapping("/api")
 public class IncidenciaController {
 	
 	@Autowired
 	private  IncidenciaService incidenciaService;
 
 	//METODO LISTAR
-    @GetMapping("/listar") 
+    @GetMapping("/incidencias/listar") 
 	public List<Incidencia>listar(Model model) {
 		model.addAttribute("titulo","listado de incidencias");
 		model.addAttribute("listaIncidencias", incidenciaService.listar());
@@ -40,7 +40,7 @@ public class IncidenciaController {
 
     
     
-    @GetMapping("/{id}")
+    @GetMapping("/incidencias/{id}")
     public ResponseEntity obtenerIncidencia(@PathVariable(value="id")Integer id){
     	try {
     		return ResponseEntity.status(HttpStatus.OK).body(incidenciaService.ObtenerIncidencia(id));
@@ -55,7 +55,7 @@ public class IncidenciaController {
     
   
     
-    @PostMapping
+    @PostMapping("/incidencias")
     @ResponseStatus(value = HttpStatus.CREATED, reason = "se creo correctamente")
     @ResponseBody
     public ResponseEntity<Incidencia>insertarIncidencia(@RequestBody Incidencia incidencia){
@@ -68,7 +68,7 @@ public class IncidenciaController {
     }
     
     
-    @PutMapping("/{id}")
+    @PutMapping("/incidencias/{id}")
     @ResponseStatus(value = HttpStatus.ACCEPTED, reason = "se actulizó correctamente")
     @ResponseBody
     public ResponseEntity<Incidencia>ActualizarIncidencia(@RequestBody Incidencia incidencia, @PathVariable(value="id")Integer id){
@@ -87,7 +87,7 @@ public class IncidenciaController {
     
     
     
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/incidencias/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Incidencia EliminarIncidencia(@PathVariable(value="id")Integer id) {
     	return incidenciaService.EliminarIncidencia(id);
